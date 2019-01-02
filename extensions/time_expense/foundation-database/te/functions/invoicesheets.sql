@@ -62,7 +62,7 @@ BEGIN
                 current_date, _s.teitem_po, '',
                 '', cust_name, COALESCE(addr_line1,''),
                 COALESCE(addr_line2,''), COALESCE(addr_line3,''), COALESCE(addr_city,''),
-                COALESCE(addr_state,''), COALESCE(addr_postalcode,''), cntct_phone, 
+                COALESCE(addr_state,''), COALESCE(addr_postalcode,''), getcontactphone(cust_cntct_id),
                 '', '', '',
                 '', '', '',
                 '', '', cust_salesrep_id,
