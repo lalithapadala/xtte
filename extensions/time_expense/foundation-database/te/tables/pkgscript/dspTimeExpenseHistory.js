@@ -1,7 +1,7 @@
 /*
  * This file is part of the xtte package for xTuple ERP: PostBooks Edition, a free and
  * open source Enterprise Resource Planning software suite,
- * Copyright (c) 1999-2018 by OpenMFG LLC, d/b/a xTuple.
+ * Copyright (c) 1999-2019 by OpenMFG LLC, d/b/a xTuple.
  * It is licensed to you under the Common Public Attribution License
  * version 1.0, the full text of which (including xTuple-specific Exhibits)
  * is available at www.xtuple.com/CPAL.  By using this software, you agree
@@ -42,9 +42,9 @@ var teSql = "SELECT 1,'" + qsTr("Time") + "','T' "
           + "UNION "
           + "SELECT 2,'" + qsTr("Expense") +  "','E';";
 
-var empGrpSql = "SELECT empgrp_id, empgrp_name, empgrp_name "
+var empGrpSql = "SELECT groups_id, groups_name, groups_name "
               + "FROM empgrp "
-              + "ORDER BY empgrp_name;";
+              + "ORDER BY groups_name;";
 
 _parameterWidget.append(qsTr("Start Date"), "startDate", ParameterWidget.Date, mainwindow.dbDate());
 _parameterWidget.append(qsTr("End Date"), "endDate",   ParameterWidget.Date, mainwindow.dbDate());
@@ -127,13 +127,13 @@ xtte.dspTimeExpenseHistory.viewItem = function()
   xtte.dspTimeExpenseHistory.openItem(xtte.viewMode);
 }
 
-
 xtte.dspTimeExpenseHistory.openItem = function(mode)
 {  
-  var params   = new Object;
-  params.mode = mode;
-  params.teitem_id = _list.id();
-  params.emp_id = _list.altId();
+  var params   = {
+    mode:      mode,
+    teitem_id: _list.id(),
+    emp_id:    _list.altId()
+  };
 
   var wnd = toolbox.openWindow("timeExpenseSheetItem", mywindow);
   toolbox.lastWindow().set(params);
@@ -141,7 +141,6 @@ xtte.dspTimeExpenseHistory.openItem = function(mode)
     xtte.timeExpenseSheet.fillList();
 }
 
-// Connections
 _print.clicked.connect(xtte.dspTimeExpenseHistory.print);
 _query.clicked.connect(xtte.dspTimeExpenseHistory.fillList);
 _list["populateMenu(QMenu *, XTreeWidgetItem *, int)"].connect(xtte.dspTimeExpenseHistory.populateMenu)

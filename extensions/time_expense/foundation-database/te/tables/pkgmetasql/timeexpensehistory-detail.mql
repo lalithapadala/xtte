@@ -1,7 +1,7 @@
 -- Group: timeexpensehistory
 -- Name:  detail
 -- Notes:
---        Copyright (c) 1999-2018 by OpenMFG LLC, d/b/a xTuple.
+--        Copyright (c) 1999-2019 by OpenMFG LLC, d/b/a xTuple.
 --        See www.xtuple.com/CPAL for the full text of the software license.
 
 SELECT teitem_id AS id, tehead_emp_id AS altid,
@@ -48,10 +48,10 @@ SELECT teitem_id AS id, tehead_emp_id AS altid,
   JOIN task ON teitem_prjtask_id = task_id
   JOIN prj ON task_prj_id = prj_id
 <? if exists("custgrp_id") ?>
-  JOIN custgrpitem ON groupsitem_reference_id = cust_id
+  JOIN custgrpitem ON custgrpitem.groupsitem_reference_id = cust_id
 <? endif ?>
 <? if exists("empgrp_id") ?>
-  JOIN empgrpitem ON groupsitem_reference_id = emp_id
+  JOIN empgrpitem ON empgrpitem.groupsitem_reference_id = emp_id
 <? endif ?>
 <? if exists("itemgrp_id") ?>
   JOIN itemgrpitem ON itemgrpitem_item_id = item_id
@@ -82,13 +82,13 @@ WHERE true
   AND custtype_code ~* <? value("custtype_pattern") ?>
 <? endif ?>
 <? if exists("custgrp_id") ?>
-  AND groupsitem_groups_id = <? value("custgrp_id") ?>
+  AND custgrpitem.groupsitem_groups_id = <? value("custgrp_id") ?>
 <? endif ?>
 <? if exists("emp_id") ?>
   AND emp_id = <? value("emp_id") ?>
 <? endif ?>
 <? if exists("empgrp_id") ?>
-  AND groupsitem_groups_id = <? value("empgrp_id") ?>
+  AND empgrp.groupsitem_groups_id = <? value("empgrp_id") ?>
 <? endif ?>
 <? if exists("item_id") ?>
   AND item_id = <? value("item_id") ?>
