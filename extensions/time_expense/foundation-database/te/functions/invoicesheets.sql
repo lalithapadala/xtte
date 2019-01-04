@@ -32,7 +32,6 @@ BEGIN
 
        -- loop thru records and create invoices by customer, by PO for the provided headid
        LOOP
-         --select nextval('invchead_invchead_id_seq') into _invcid;
          _invcnum := CAST(fetchInvcNumber() AS TEXT);
          _invcheadid := nextval('invchead_invchead_id_seq');
          _linenum := 1;
@@ -62,7 +61,7 @@ BEGIN
                 current_date, _s.teitem_po, '',
                 '', cust_name, COALESCE(addr_line1,''),
                 COALESCE(addr_line2,''), COALESCE(addr_line3,''), COALESCE(addr_city,''),
-                COALESCE(addr_state,''), COALESCE(addr_postalcode,''), cntct_phone, 
+                COALESCE(addr_state,''), COALESCE(addr_postalcode,''), getcontactphone(cust_cntct_id),
                 '', '', '',
                 '', '', '',
                 '', '', cust_salesrep_id,
